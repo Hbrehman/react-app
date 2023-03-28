@@ -13,5 +13,11 @@ pipeline {
       }
     }
 
+    stage('deploy static file') {
+      steps {
+        sh 'sudo cp index.html /var/www/html/'
+      }
+    }
+
   }
 }
