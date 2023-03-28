@@ -7,9 +7,9 @@ pipeline {
       }
     }
 
-    stage('deploy') {
+    stage('build') {
       steps {
-        sh 'sudo cp index.html /var/www/html/'
+        sh 'docker build -t hbrehman/node-app'
       }
     }
 
