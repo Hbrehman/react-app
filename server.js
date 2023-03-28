@@ -7,7 +7,7 @@ const server = http.createServer((req, res) => {
   res.statusCode = 200;
   console.log('server got a ping');
   res.setHeader("Content-Type", "text/plain");
-  res.end("Hello World");
+  res.end("Hello World from node server running in a docker container");
 });
 
 server.listen(port, hostname, () => {
