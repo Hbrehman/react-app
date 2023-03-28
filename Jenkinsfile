@@ -7,9 +7,36 @@ pipeline {
       }
     }
 
-    stage('deploy') {
+    stage('build') {
       steps {
-        sh 'sudo cp index.html /var/www/html/'
+        sh 'docker build -t hbrehman/node-app .'
+      }
+    }
+
+    stage('deploy static file') {
+      parallel {
+        stage('deploy static file') {
+          steps {
+            sh 'sudo cp index.html /var/www/html/'
+          }
+        }
+
+        stage('Login to docker hub account') {
+          environment {
+            DOCKERHUB_PASSWORD = 'Hbr@7300919'
+            DOCKERHUB_USER = 'hbrehman'
+          }
+          steps {
+            sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD'
+          }
+        }
+
+      }
+    }
+
+    stage('Runs docker container') {
+      steps {
+        sh 'docker run -d -p 3000:3000 --name node-app hbrehman/node-app:latest'
       }
     }
 
