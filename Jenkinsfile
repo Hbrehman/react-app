@@ -36,7 +36,9 @@ pipeline {
 
     stage('Runs docker container') {
       steps {
-        sh 'docker run -d -p 3000:3000 --name node-app hbrehman/node-app:latest'
+        sh '''docker stop node-app
+docker rm node-app
+docker run -d -p 3000:3000 --name node-app hbrehman/node-app:latest'''
       }
     }
 
