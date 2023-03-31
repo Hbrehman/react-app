@@ -13,24 +13,13 @@ pipeline {
       }
     }
 
-    stage('deploy static file') {
-      parallel {
-        stage('deploy static file') {
-          steps {
-            sh 'sudo cp index.html /var/www/html/'
-          }
-        }
-
-        stage('Login to docker hub account') {
-          environment {
-            DOCKERHUB_PASSWORD = 'Hbr@7300919'
-            DOCKERHUB_USER = 'hbrehman'
-          }
-          steps {
-            sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD'
-          }
-        }
-
+    stage('Login to docker hub') {
+      environment {
+        DOCKERHUB_PASSWORD = 'Hbr@7300919'
+        DOCKERHUB_USER = 'hbrehman'
+      }
+      steps {
+        sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD'
       }
     }
 
